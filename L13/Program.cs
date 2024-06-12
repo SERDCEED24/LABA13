@@ -10,7 +10,7 @@ namespace L13
         static void GenerateCollectionsAndJournals(ref MyObservableCollection<Car> col1, ref MyObservableCollection<Car> col2, ref Journal jor1, ref Journal jor2)
         {
             Console.WriteLine("Введите желаемую длину коллекций:");
-            int len = VHS.Input("Ошибка! Попробуйте ввести натуральное число!", 1);
+            int len = VHS.Input("Ошибка! Попробуйте ввести натуральное число!", x => 1 <= x);
             col1 = new MyObservableCollection<Car>("table1", len);
             col2 = new MyObservableCollection<Car>("table2", len);
             jor1 = new Journal();
@@ -72,13 +72,13 @@ namespace L13
             else
             {
                 Console.WriteLine("Введите номер коллекции, из которой хотите удалить элемент:");
-                int response = VHS.Input("Ошибка! Введите целое число от 1 до 2!", 1, 2);
+                int response = VHS.Input("Ошибка! Введите целое число от 1 до 2!", x => 1 <= x && x <= 2);
                 Console.WriteLine("Введите данные для элемента, который собираетесь удалить:");
                 Car item = new Car();
                 item.Init();
                 if (response == 1)
-                { 
-                    if (col1.Remove(item)) 
+                {
+                    if (col1.Remove(item))
                         Console.WriteLine("Элемент был успешно удалён из коллекции.");
                     else
                         Console.WriteLine("Элемент не найден в коллекции!");
@@ -92,13 +92,12 @@ namespace L13
                 }
             }
         }
-        static void AddElementToChosenCollection(ref MyObservableCollection<Car> col1, ref MyObservableCollection<Car> col2)
+        static void AddRandomElementToChosenCollection(ref MyObservableCollection<Car> col1, ref MyObservableCollection<Car> col2)
         {
             Console.WriteLine("Введите номер коллекции, в которую хотите добавить элемент:");
-            int response = VHS.Input("Ошибка! Введите целое число от 1 до 2!", 1, 2);
-            Console.WriteLine("Введите данные для элемента, который собираетесь добавить:");
+            int response = VHS.Input("Ошибка! Введите целое число от 1 до 2!", x => 1 <= x && x <= 2);
             Car item = new Car();
-            item.Init();
+            item.RandomInit();
             if (response == 1)
             {
                 col1.Add(item);
@@ -112,7 +111,7 @@ namespace L13
         static void ChangeElementInChosenCollection(ref MyObservableCollection<Car> col1, ref MyObservableCollection<Car> col2)
         {
             Console.WriteLine("Введите номер коллекции, в которой хотите заменить элемент:");
-            int response = VHS.Input("Ошибка! Введите целое число от 1 до 2!", 1, 2);
+            int response = VHS.Input("Ошибка! Введите целое число от 1 до 2!", x => 1 <= x && x <= 2);
             Console.WriteLine("Введите данные для элемента, который собираетесь изменить:");
             Car item = new Car();
             item.Init();
@@ -135,7 +134,7 @@ namespace L13
                          "2. Распечатать коллекции.\n" +
                          "3. Распечатать журналы.\n" +
                          "4. Удалить элемент из выбранной коллекции.\n" +
-                         "5. Добавить элемент к выбранной коллекции.\n" +
+                         "5. Добавить рандомный элемент к выбранной коллекции.\n" +
                          "6. Изменить элемент из выбранной коллекции.\n" +
                          "7. Выход.\n";
             MyObservableCollection<Car> table1 = new MyObservableCollection<Car>("table1", 0);
@@ -146,7 +145,7 @@ namespace L13
             do
             {
                 Console.WriteLine(Menu);
-                response = VHS.Input("Ошибка! Введите целое число от 1 до 7!", 1, 7);
+                response = VHS.Input("Ошибка! Введите целое число от 1 до 7!", x => 1 <= x && x <= 7);
                 Console.WriteLine();
                 try
                 {
@@ -165,7 +164,7 @@ namespace L13
                             DeleteElementFromChosenCollection(ref table1, ref table2);
                             break;
                         case 5:
-                            AddElementToChosenCollection(ref table1, ref table2);
+                            AddRandomElementToChosenCollection(ref table1, ref table2);
                             break;
                         case 6:
                             ChangeElementInChosenCollection(ref table1, ref table2);

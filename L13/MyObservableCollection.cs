@@ -44,9 +44,8 @@ namespace L13
             get => base[item];
             set
             {
-                T oldItem = base[item];
                 base[item] = value;
-                OnCollectionReferenceChanged(this, new CollectionHandlerEventArgs($"Был заменён элемент {item.ToString()}", base[item]));
+                OnCollectionReferenceChanged(this, new CollectionHandlerEventArgs($"Был заменён элемент {item.ToString()}", value));
             }
         }
         public void OnCollectionCountChanged(object source, CollectionHandlerEventArgs args)
